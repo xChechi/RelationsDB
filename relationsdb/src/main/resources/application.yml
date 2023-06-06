@@ -1,0 +1,22 @@
+server:
+  port: 3000
+
+spring:
+  main:
+    web-application-type: servlet
+  jpa:
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/relationsdb?createDatabaseIfNotExist=true
+    username: root
+    password: ccdccd
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  logging:
+    level:
+      org.springframework: info
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp
+      suffix: .jsp
