@@ -1,4 +1,4 @@
-package chechi.homeworks.relationsdb.entity;
+package chechi.homeworks.relationsdb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
