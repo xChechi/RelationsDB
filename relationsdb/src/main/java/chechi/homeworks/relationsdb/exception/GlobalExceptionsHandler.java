@@ -1,4 +1,4 @@
-package chechi.homeworks.relationsdb.exceptions;
+package chechi.homeworks.relationsdb.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

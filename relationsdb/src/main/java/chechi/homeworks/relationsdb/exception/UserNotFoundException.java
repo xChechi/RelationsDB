@@ -1,4 +1,4 @@
-package chechi.homeworks.relationsdb.exceptions;
+package chechi.homeworks.relationsdb.exception;
 
 public class UserNotFoundException extends RuntimeException {
 
