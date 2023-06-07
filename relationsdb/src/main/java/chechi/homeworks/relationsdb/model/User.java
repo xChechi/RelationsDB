@@ -2,11 +2,15 @@ package chechi.homeworks.relationsdb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "relationsdb")
@@ -40,4 +44,9 @@ public class User {
     @Size(min = 8, message = "Password must be atleast 8 characters")
     @Column(name = "user_password")
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Car> cars;
+
 }
