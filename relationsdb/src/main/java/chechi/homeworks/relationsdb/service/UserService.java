@@ -1,5 +1,7 @@
 package chechi.homeworks.relationsdb.service;
 
+import chechi.homeworks.relationsdb.component.UserBuilder;
+import chechi.homeworks.relationsdb.dto.UserRequest;
 import chechi.homeworks.relationsdb.exception.UserNotFoundException;
 import chechi.homeworks.relationsdb.model.User;
 import chechi.homeworks.relationsdb.repository.UserRepository;
@@ -12,11 +14,13 @@ import java.util.List;
 public class UserService  {
 
     private UserRepository userRepository;
+    private UserBuilder userBuilder;
 
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserBuilder userBuilder) {
         this.userRepository = userRepository;
+        this.userBuilder = userBuilder;
     }
 
     public List<User> findAllUsers () {
@@ -29,22 +33,21 @@ public class UserService  {
         return userRepository.findById(id).orElseThrow(() -> { throw new UserNotFoundException( "User with ID " + id + " not found."); });
     }
 
-    public User deleteUser (Integer id) {
+    public void deleteUser (Integer id) {
 
-        List<User> userList = userRepository.findAll();
-
-        User user = userList.stream()
-                    .filter(u -> u.getId() == id)
-                    .findFirst()
-                    .orElseThrow(() -> new UserNotFoundException("Can not delete. User with ID " + id + " not exist."));
-
-            userList.remove(user);
-            return user;
+        userRepository.deleteById(id);
     }
 
 
-    public User createUser(User user) {
+    public User createUser(UserRequest request) {
+
+        User user = userBuilder.buildUser(request);
+        return userRepository.save(user);
+    }
+
+    public User updateUser (User user) {
 
         return userRepository.save(user);
     }
+
 }

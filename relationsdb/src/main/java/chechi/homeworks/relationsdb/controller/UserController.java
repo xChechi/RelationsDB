@@ -34,22 +34,27 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<User> deleteUser (@PathVariable Integer id) {
-        User user = userService.deleteUser(id);
-        return ResponseEntity.ok(user);
+    public void deleteUser (@PathVariable Integer id) {
 
+        userService.deleteUser(id);
     }
 
     @PostMapping("/users")
     public void createUser (@Valid @RequestBody UserRequest request) {
 
-        User user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
-                .email(request.getEmail())
-                .password(request.getPassword())
-                .build();
+       userService.createUser(request);
+    }
 
-       userService.createUser(user);
+    @PutMapping("/users/{id}")
+    public User updateUser(@PathVariable Integer id, @Valid @RequestBody User user) {
+
+        User existingUser = userService.findUserById(id);
+
+        existingUser.setFirstName(user.getFirstName());
+        existingUser.setLastName(user.getLastName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+
+        return userService.updateUser(existingUser);
     }
 }
